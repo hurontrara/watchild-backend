@@ -33,7 +33,7 @@ pipeline {
                             sh """
                                 curl -O https://amazon-ecr-credential-helper-releases.s3.us-east-2.amazonaws.com/0.8.0/linux-amd64/${ecrLoginHelper}
                                 chmod +x ${ecrLoginHelper}
-                                mv ${ecrLoginHelper} /usr/local/bin/
+                                sudo mv ${ecrLoginHelper} /usr/local/bin/
                                 cd ${mainDir}
                                 ./gradlew jib -Djib.to.image=${ecrUrl}/${repository}:latest -Djib.console='plain'
                             """
