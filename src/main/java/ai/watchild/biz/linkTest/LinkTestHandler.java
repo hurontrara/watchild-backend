@@ -11,7 +11,7 @@ import reactor.core.publisher.Mono;
 public class LinkTestHandler {
 
     public Mono<ServerResponse> test(ServerRequest serverRequest) {
-        return ServerResponse.ok().bodyValue("Hello World");
+        return ServerResponse.ok().bodyValue("Hello World123");
     }
 
 }
