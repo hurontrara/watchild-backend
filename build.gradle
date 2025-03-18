@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.3'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'com.google.cloud.tools.jib' version '3.3.0'
 }
 
 group = 'ai.watchild'
@@ -37,4 +38,37 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+
+jib {
+    from {
+        image = 'openjdk:23-jdk-slim'
+    }
+    to {
+        tags = ['latest']
+    }
+    container {
+        entrypoint = ['java', '-jar', 'biz-0.0.1-SNAPSHOT.jar']
+
+//        jvmFlags = ['-Xms512m', '-Xmx512m', '-Xdebug', '-XshowSettings:vm', '-XX:+UnlockExperimentalVMOptions', '-XX:+UseContainerSupport']
+        jvmFlags = ['-XX:+UseContainerSupport']
+
+//        environment = [SPRING_OUTPUT_ANSI_ENABLED: "ALWAYS"]
+//        labels = [version:project.version, name:project.name, group:project.group]
+
+        creationTime = 'USE_CURRENT_TIMESTAMP'
+        format = 'Docker'
+
+    }
+
+    extraDirectories {
+        paths {
+            path {
+                from = file('build/libs')
+            }
+        }
+    }
+
+
 }
