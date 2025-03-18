@@ -44,7 +44,7 @@ pipeline {
              steps {
                 script{
                     try {
-                        withAWS(region:'${region}', credentials:"aws-key") {
+                        withAWS(region:"${region}", credentials:"aws_key") {
                             sh"""
                                 aws ecs update-service --region ${region} --cluster ${ecsCluster} --service ${ecsService} --force-new-deployment
                             """
