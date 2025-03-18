@@ -19,6 +19,7 @@ pipeline {
             steps {
                 sh """
                 cd ${mainDir}
+                sh 'chmod +x ./gradlew'
                 ./gradlew clean
                 ./gradlew build
                 """
